@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  app:
+    build: app
+    ports:
+      - 8000:8000
+
+  nginx:
+    image: 'nginx-test'
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates
+      - ./nginx/config_helpers:/etc/nginx/config_helpers
+    links:
+      - app:app
+    command: nginx -g 'daemon off;'
+    ports:
+      - 80:80
